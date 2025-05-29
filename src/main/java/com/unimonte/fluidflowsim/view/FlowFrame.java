@@ -1,10 +1,6 @@
-package com.mycompany.fluidflowsim.view;
+package com.unimonte.fluidflowsim.view;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 public class FlowFrame extends JFrame {
     

@@ -1,6 +1,6 @@
-package com.mycompany.fluidflowsim.controller;
+package com.unimonte.fluidflowsim.controller;
 
-import com.mycompany.fluidflowsim.view.FlowFrame;
+import com.unimonte.fluidflowsim.view.FlowFrame;
 import javax.swing.SwingUtilities;
 
 public class FlowSimController {

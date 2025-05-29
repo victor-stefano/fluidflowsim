@@ -1,4 +1,4 @@
-package com.mycompany.fluidflowsim.view;
+package com.unimonte.fluidflowsim.view;
 
 import java.awt.Color;
 import java.awt.Graphics;

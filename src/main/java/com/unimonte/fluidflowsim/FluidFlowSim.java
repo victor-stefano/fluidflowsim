@@ -1,6 +1,6 @@
-package com.mycompany.fluidflowsim;
+package com.unimonte.fluidflowsim;
 
-import com.mycompany.fluidflowsim.controller.FlowSimController;
+import com.unimonte.fluidflowsim.controller.FlowSimController;
 
 public class FluidFlowSim {
 
