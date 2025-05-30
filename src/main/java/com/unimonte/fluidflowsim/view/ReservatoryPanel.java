@@ -4,43 +4,52 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class ReservatoryPanel extends JPanel {
-    private boolean isGravityActive = false;
-    private int fluidHeight = 0;
+    
+    private int fluidLevel = 0;
+    private int level = 0;
+    
+    public ReservatoryPanel() {
+        setOpaque(false);
+        fillReservatory();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
         Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.BLUE);
 
-        int x = 150, y = 0, width = 100, totalHeight = 300;
-        g2.setColor(Color.GRAY);
-        g2.fillRect(x, y, width, totalHeight);
+        int width = getWidth();
+        int height = getHeight();
 
-        g2.setColor(Color.CYAN);
-        g2.fillRect(x, y + (totalHeight - fluidHeight), width, fluidHeight);
-
-        // Pressão
-        double rho = 1000;        // kg/m³ (água)
-        double gVal = isGravityActive ? 9.8 : 0; // m/s²
-        double h = fluidHeight / 100.0; // em metros
-        double patm = 101.3; // pressão atmosférica em kPa
-        double p = patm + rho * gVal * h / 1000.0; // em kPa
-
-        g2.setColor(Color.BLACK);
-        g2.drawString(String.format("Pressão no fundo: %.2f kPa", p), x, y + totalHeight + 20);
-    }
-
-    public void setFluidHeight(int height) {
-        this.fluidHeight = height;
-        repaint();
-    }
-
-    public void setIsGravityActive(boolean bool) {
-        this.isGravityActive = bool;
-        repaint();
+        int y = height - fluidLevel;
+        g2.fillRect(0, y, width, fluidLevel);
     }
     
+    public void fillReservatory() {
+        Timer timer = new Timer(100, null);
+        timer.addActionListener(e -> {
+            if (fluidLevel < getHeight()) {
+                addFluidLevel(level);
+            } else {
+                ((Timer) e.getSource()).stop();
+            }
+        });
+        timer.start();
+    }
     
+    public void setFluidLevel(int level) {
+        this.fluidLevel = Math.max(0, Math.min(level, getHeight()));
+        this.repaint();
+    }
+    
+    public void addFluidLevel(int level) {
+        this.level = level;
+        this.fluidLevel = Math.max(0, Math.min(fluidLevel + level, getHeight()));
+        this.repaint();
+    }
 }
