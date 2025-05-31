@@ -1,9 +1,6 @@
 package com.unimonte.fluidflowsim.view;
 
 import java.awt.Color;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JSlider;
 
@@ -26,18 +23,36 @@ public class FlowFrame extends JFrame {
         
         JSlider sliderIn = new JSlider(0, 10);
         sliderIn.setValue(0);
-        sliderIn.setBounds(250, 106, 162, 30);
-        sliderIn.setBackground(Color.LIGHT_GRAY);
+        sliderIn.setBounds(252, 106, 165, 30);
+        sliderIn.setOpaque(false);
         sliderIn.addChangeListener(e -> {
             int value = sliderIn.getValue();
             reservatoryPanel.addFluidLevel(value);
             fluidPanel.setFluidWidth(value * 5);
         });
         
+        JSlider sliderOut = new JSlider(0, 10);
+        sliderOut.setValue(0);
+        sliderOut.setBounds(450, 620, 80, 30);
+        sliderOut.setOpaque(false);
+        sliderOut.addChangeListener(e -> {
+            int value = sliderOut.getValue();
+            reservatoryPanel.removeFluidLevel(value);
+        });
+        
+        PressureSensorComponent sensor = new PressureSensorComponent();
+        sensor.setBounds(500, 500, 100, 30);
+        sensor.setLocation(400, 100);
+        
+        
         BackgroundPanel backgroundPanel = new BackgroundPanel(IMAGE_PATH);
+        backgroundPanel.setLayout(null);
+        
+        backgroundPanel.add(sensor);
         backgroundPanel.add(reservatoryPanel);
         backgroundPanel.add(fluidPanel);
         backgroundPanel.add(sliderIn);
+        backgroundPanel.add(sliderOut);
         
         setContentPane(backgroundPanel);
     }
