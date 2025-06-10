@@ -7,13 +7,11 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class PressureSensorComponent extends JPanel {
     private JLabel label;
+    private String pressureValue;
 
     public PressureSensorComponent() {
         setSize(40, 40);
@@ -42,15 +40,25 @@ public class PressureSensorComponent extends JPanel {
                 setLocation(newX, newY);
                 updatePressureLabel();
             }
-
-            private void updatePressureLabel() {
-                int centerY = getY() + getHeight() / 2;
-                double pressure = FlowSimController.updatePressure(centerY);
-                label.setText(FlowSimController.formatPressure(pressure));
-            }
         };
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+        addFluidListener();
+    }
+
+    private void addFluidListener() {
+        Timer timer = new Timer(16, null);
+        timer.addActionListener(e -> {
+            updatePressureLabel();
+        });
+        timer.start();
+    }
+
+    private void updatePressureLabel() {
+        int centerY = getY() + getHeight() / 2;
+        double pressure = FlowSimController.updatePressure(centerY);
+        pressureValue = FlowSimController.formatPressure(pressure);
+        label.setText(pressureValue);
     }
 }
