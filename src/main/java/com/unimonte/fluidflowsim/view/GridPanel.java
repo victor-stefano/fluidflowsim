@@ -20,7 +20,7 @@ public class GridPanel extends JPanel {
         Font font = new Font("SansSerif", Font.PLAIN, 12);
         g2.setFont(font);
 
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <= 4; i++) {
             int y = getHeight() - i * 100;
 
             g2.drawLine(0, y, getWidth(), y);

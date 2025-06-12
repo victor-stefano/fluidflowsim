@@ -1,11 +1,12 @@
 package com.unimonte.fluidflowsim.view;
 
 import com.unimonte.fluidflowsim.controller.FlowSimController;
+import com.unimonte.fluidflowsim.model.IFluid;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class FluidOutPanel extends JPanel {
+public class FluidOutPanel extends JPanel implements IFluid {
 
     private int fluidWidth = 0;
     private int targetFluidWidth = 0;
@@ -29,7 +30,7 @@ public class FluidOutPanel extends JPanel {
         this.targetFluidWidth = width;
     }
 
-    private void animateFluid() {
+    public void animateFluid() {
         if (FlowSimController.getFluidLevel() <= 0) {
             setFluidWidth(0);
         }

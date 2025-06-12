@@ -1,13 +1,12 @@
 package com.unimonte.fluidflowsim.view;
 
 import com.unimonte.fluidflowsim.controller.FlowSimController;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import com.unimonte.fluidflowsim.model.IFluid;
 
-public class ReservatoryPanel extends JPanel {
+import javax.swing.*;
+import java.awt.*;
+
+public class ReservatoryPanel extends JPanel implements IFluid {
 
     private int level = 0;
     private int outLevel = 0;
@@ -33,7 +32,7 @@ public class ReservatoryPanel extends JPanel {
         g2.fillRect(0, y, width, visualLevel);
     }
 
-    private void animateFluid() {
+    public void animateFluid() {
         int targetLevel = FlowSimController.getFluidLevel();
 
         if (visualLevel < targetLevel) {
@@ -60,7 +59,7 @@ public class ReservatoryPanel extends JPanel {
     }
 
     public void setFluidLevel(int level) {
-        FlowSimController.setFluidLevel(Math.max(0, Math.min(level, getHeight())));
+        FlowSimController.setFluidLevel(level);
     }
 
     public void removeFluidLevel(int level) {
@@ -73,5 +72,9 @@ public class ReservatoryPanel extends JPanel {
 
     public int getLevel() {
         return FlowSimController.getFluidLevel();
+    }
+
+    public void updateHeight() {
+        FlowSimController.setReservatoryBottom(getY() + 400);
     }
 }

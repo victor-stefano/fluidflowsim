@@ -1,14 +1,12 @@
 package com.unimonte.fluidflowsim.view;
 
 import com.unimonte.fluidflowsim.controller.FlowSimController;
+import com.unimonte.fluidflowsim.model.IFluid;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.*;
+import java.awt.*;
 
-public class FluidPanel extends JPanel {
+public class FluidPanel extends JPanel implements IFluid {
 
     private int fluidWidth = 0;
     private int targetFluidWidth = 0;
@@ -25,15 +23,15 @@ public class FluidPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setColor(FlowSimController.getFlowColor());
-        g2.fillRect(0, 0, fluidWidth, 345);
+        g2.fillRect(0, 0, fluidWidth, 500);
     }
 
     public void setFluidWidth(int width) {
         this.targetFluidWidth = width;
     }
 
-    private void animateFluid() {
-        if (FlowSimController.getFluidLevel() >= 300) {
+    public void animateFluid() {
+        if (FlowSimController.getFluidLevel() >= 400) {
             setFluidWidth(0);
         }
 
